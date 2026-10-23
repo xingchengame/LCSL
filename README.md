@@ -1,7 +1,7 @@
 <!-- #BEGIN COPY -->
 <!-- #PROPERTY NAME=TITLE -->
 <div align="center">
-    <img src="/LCSL/src/main/resources/assets/img/icon@8x.png" alt="LCSL Logo" width="64"/>
+    <img src="./src/main/resources/assets/img/icon@8x.png" alt="LCSL Logo" width="64"/>
 </div>
 
 <h1 align="center">LuCUNserver Launcher</h1>
@@ -13,7 +13,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-repo-blue?style=flat-square&logo=github)](https://github.com/xingchengame/LCSL)
 
-[![QQ1094125433](https://img.shields.io/badge/QQ-gray?style=flat-square&logo=qq&logoColor=ffffff)]
+[![QQ1094125433](https://img.shields.io/badge/QQ-gray?style=flat-square&logo=qq&logoColor=ffffff)](https://qm.qq.com/q/1094125433)
 [![Bilibili](https://img.shields.io/badge/Bilibili-gray?style=flat-square&logo=bilibili)](https://space.bilibili.com/3546699488299896)
 
 </div>
@@ -23,19 +23,19 @@
 
 ## 简介
 
-LCSL 是一款开源、跨平台的 Minecraft 启动器，支持模组管理、游戏自定义、游戏自动安装 (Forge、NeoForge、Cleanroom、Fabric、Legacy Fabric、Quilt、LiteLoader 和 OptiFine)、整合包创建、界面自定义等功能。
+LuCUNserver Launcher（简称 LCSL）是一款开源、跨平台的 Minecraft 启动器，支持模组管理、游戏自定义、游戏自动安装（Forge、NeoForge、Cleanroom、Fabric、Legacy Fabric、Quilt、LiteLoader 和 OptiFine）、整合包创建、界面自定义等功能。
 
-LCSL 有着强大的跨平台能力。它不仅支持 Windows、Linux、macOS、FreeBSD 等常见的操作系统，同时也支持 x86、ARM、RISC-V、MIPS、LoongArch 等不同的 CPU 架构。你可以使用 HMCL 在不同平台上轻松地游玩 Minecraft。
+LCSL 有着强大的跨平台能力。它不仅支持 Windows、Linux、macOS、FreeBSD 等常见的操作系统，同时也支持 x86、ARM、RISC-V、MIPS、LoongArch 等不同的 CPU 架构。你可以使用 LCSL 在不同平台上轻松地游玩 Minecraft。
 
-这些优势都源于HMCL的开源项目，感谢HMCL！
+这些优势源于 HMCL 的开源项目，感谢 HMCL！
 
-LuCUNserver Launcher 是 LuCUNserver Minecraft 服务器的 Minecraft 启动器，基于 HMCL（Hello Minecraft! Launcher）开发，感谢 HMCL！
+LCSL 是 LuCUNserver Minecraft 服务器的 Minecraft 启动器，基于 HMCL（Hello Minecraft! Launcher）开发，感谢 HMCL！
 
 ## 下载
 
 你可以从这些渠道下载 LCSL：
 
-- [HMCL 官方网站](http://lucunserver.xyz/launcher/home)
+- [LCSL 官方网站](http://lucunserver.xyz/launcher/home)
 - [GitHub Release](https://github.com/xingchengame/LCSL/releases)
 
 ## 参与贡献
@@ -56,6 +56,6 @@ LCSL 是一个社区驱动的开源项目，欢迎任何人参与贡献代码或
 
 该程序在 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) 开源协议下发布，同时附有以下附加条款。
 
-### 附加条款 (依据 GPLv3 开源协议第七条)
+### 附加条款（依据 GPLv3 开源协议第七条）
 
-1. 当你分发该程序的二次修改版本时，应当按照[HMCL的相关条款](https://github.com/HMCL-dev/HMCL/blob/main/docs/README_zh_Hans.md)
+1. 当你分发该程序的二次修改版本时，应当按照 [HMCL 的相关条款](https://github.com/HMCL-dev/HMCL/blob/main/docs/README_zh_Hans.md) 保留原版权声明、注明修改内容，并以相同协议（GPLv3 及其附加条款）分发。
