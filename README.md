@@ -1,7 +1,7 @@
 <!-- #BEGIN COPY -->
 <!-- #PROPERTY NAME=TITLE -->
 <div align="center">
-    <img src="./src/main/resources/assets/img/icon@8x.jpg" alt="LCSL Logo" width="64"/>
+    <img src="./LCSL/src/main/resources/assets/img/icon@8x.jpg" alt="LCSL Logo" width="64"/>
 </div>
 
 <h1 align="center">LuCUNserver Launcher</h1>
