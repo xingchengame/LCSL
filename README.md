@@ -1,12 +1,10 @@
-# LCSL
-LuCUNserver Launcher is a Minecraft launcher for the LuCUNserver Minecraft server. It is based on HMCL. Thanks to HMCL!
 <!-- #BEGIN COPY -->
 <!-- #PROPERTY NAME=TITLE -->
 <div align="center">
-    <img src="/HMCL/src/main/resources/assets/img/icon@8x.png" alt="HMCL Logo" width="64"/>
+    <img src="/LCSL/src/main/resources/assets/img/icon@8x.png" alt="HMCL Logo" width="64"/>
 </div>
 
-<h1 align="center">Hello Minecraft! Launcher</h1>
+<h1 align="center">LuCUNserver Launcher</h1>
 <!-- #END COPY -->
 
 <!-- #BEGIN COPY -->
