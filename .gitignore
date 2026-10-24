@@ -1,0 +1,80 @@
+*.class
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+*.hprof
+
+*.jfr
+
+.gradle
+gradle.properties
+
+*.lck
+*.1
+*.2
+*.log
+.mine*
+/externalgames
+NVIDIA
+minecraft-exported-crash-info*
+hmcl-exported-logs-*
+terracotta-log-*
+hmcl-mod-update-list-*
+*.hmcl-theme
+/.java/
+/.local/
+/.cache/
+
+# IANA Language Subtag Registry
+language-subtag-registry
+
+# gradle build
+/build/
+/LCSL/build/
+/LCSLCore/build/
+/LCSLBoot/build/
+/minecraft/libraries/LCSLTransformerDiscoveryService/build/
+/minecraft/libraries/LCSLMultiMCBootstrap/build/
+/buildSrc/build/
+
+# idea
+.idea
+/out/
+/LCSL/out/
+/LCSLCore/out/
+/minecraft/libraries/LCSLTransformerDiscoveryService/out/
+/minecraft/libraries/LCSLMultiMCBootstrap/out/
+
+# eclipse
+/bin/
+/LCSL/bin/
+/LCSLBoot/bin/
+/LCSLCore/bin/
+/minecraft/libraries/LCSLTransformerDiscoveryService/bin/
+/minecraft/libraries/LCSLMultiMCBootstrap/bin/
+.classpath
+.project
+.settings
+
+# netbeans
+.nb-gradle
+
+*.exe
+!/LCSL/launcher/HMCLauncher.exe
+
+# macos
+.DS_Store
+
+# vscode
+.vscode/
+
+# test
+/hmcl.json
+/.hmcl.json
+/.hmcl/
+
+# AI
+/.gemini/
+!/.gemini/config.yaml
+.codex
+/.gradle-*/
