@@ -89,7 +89,7 @@ public final class AboutPage extends SpinnerPane {
             claim.setTitle(i18n("about.claim"));
             claim.setSubtitle(i18n("about.claim.statement"));
 
-            var openSource = LineButton.createExternalLinkButton(Metadata.REPOSITORY_URL);
+            var openSource = LineButton.createExternalLinkButton("https://github.com/xingchengame/LCSL/");
             openSource.setLargeTitle(true);
             openSource.setTitle(i18n("about.open_source"));
             openSource.setSubtitle(i18n("about.open_source.statement"));
