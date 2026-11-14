@@ -210,6 +210,105 @@ public final class LauncherSettings extends ObservableSetting implements JsonSch
         return disableAutoShowUpdateDialog;
     }
 
+    /// Whether a toast is shown when the LuCunServer goes up or down.
+    @SerializedName("serverNotifyStatus")
+    private final BooleanProperty serverNotifyStatus = new SimpleBooleanProperty(true);
+
+    /// Returns the server status reminder switch property.
+    public BooleanProperty serverNotifyStatusProperty() {
+        return serverNotifyStatus;
+    }
+
+    /// Whether a toast is shown when a player joins the LuCunServer.
+    @SerializedName("serverNotifyPlayerOnline")
+    private final BooleanProperty serverNotifyPlayerOnline = new SimpleBooleanProperty(false);
+
+    /// Returns the player join reminder switch property.
+    public BooleanProperty serverNotifyPlayerOnlineProperty() {
+        return serverNotifyPlayerOnline;
+    }
+
+    /// Whether a toast is shown when the LuCunServer website publishes a new announcement.
+    @SerializedName("serverNotifyAnnouncements")
+    private final BooleanProperty serverNotifyAnnouncements = new SimpleBooleanProperty(true);
+
+    /// Returns the announcement reminder switch property.
+    public BooleanProperty serverNotifyAnnouncementsProperty() {
+        return serverNotifyAnnouncements;
+    }
+
+    /// The id of the newest announcement the launcher has already seen, `0` before the first check.
+    @SerializedName("serverLastAnnouncementId")
+    private final IntegerProperty serverLastAnnouncementId = new SimpleIntegerProperty(0);
+
+    /// Returns the seen announcement id property.
+    public IntegerProperty serverLastAnnouncementIdProperty() {
+        return serverLastAnnouncementId;
+    }
+
+    /// Whether a toast is shown when the website publishes a new modpack version.
+    @SerializedName("serverNotifyPack")
+    private final BooleanProperty serverNotifyPack = new SimpleBooleanProperty(true);
+
+    /// Returns the modpack update reminder switch property.
+    public BooleanProperty serverNotifyPackProperty() {
+        return serverNotifyPack;
+    }
+
+    /// Whether the first good check of every day reports how the server is doing.
+    @SerializedName("serverNotifyDigest")
+    private final BooleanProperty serverNotifyDigest = new SimpleBooleanProperty(true);
+
+    /// Returns the daily digest switch property.
+    public BooleanProperty serverNotifyDigestProperty() {
+        return serverNotifyDigest;
+    }
+
+    /// The date of the last daily digest, in ISO format, empty before the first digest.
+    @SerializedName("serverDigestDate")
+    private final StringProperty serverDigestDate = new SimpleStringProperty("");
+
+    /// Returns the last digest date property.
+    public StringProperty serverDigestDateProperty() {
+        return serverDigestDate;
+    }
+
+    /// The id of the newest modpack version the launcher has already seen, `0` before the first check.
+    @SerializedName("serverLastPackId")
+    private final IntegerProperty serverLastPackId = new SimpleIntegerProperty(0);
+
+    /// Returns the seen modpack version id property.
+    public IntegerProperty serverLastPackIdProperty() {
+        return serverLastPackId;
+    }
+
+    /// Whether the welcome guide has been shown on this machine.
+    @SerializedName("serverOnboardingDone")
+    private final BooleanProperty serverOnboardingDone = new SimpleBooleanProperty(false);
+
+    /// Returns the welcome guide switch property.
+    public BooleanProperty serverOnboardingDoneProperty() {
+        return serverOnboardingDone;
+    }
+
+    /// How many times a game opened its window through this launcher.
+    @SerializedName("launchCount")
+    private final IntegerProperty launchCount = new SimpleIntegerProperty(0);
+
+    /// Returns the launch count property.
+    public IntegerProperty launchCountProperty() {
+        return launchCount;
+    }
+
+    /// How many seconds the games launched through this launcher have run for in total.
+    @SerializedName("playSeconds")
+    private final LongProperty playSeconds = new SimpleLongProperty(0);
+
+    /// Returns the total play time property, in seconds.
+    public LongProperty playSecondsProperty() {
+        return playSeconds;
+    }
+
     /// The common Minecraft directory selection mode.
     @SerializedName("commonDirectoryType")
     private final ObjectProperty<EnumCommonDirectory> commonDirectoryType = new RawPreservingObjectProperty<>(EnumCommonDirectory.DEFAULT);
@@ -521,23 +620,6 @@ public final class LauncherSettings extends ObservableSetting implements JsonSch
     /// Returns the selected file download source property.
     public ObjectProperty<DownloadSource> fileDownloadSourceProperty() {
         return fileDownloadSource;
-    }
-
-    /// The region the launcher serves downloads for. Online downloading is only offered
-    /// outside Chinese Mainland.
-    @SerializedName("downloadRegion")
-    private final ObjectProperty<DownloadRegion> downloadRegion = new RawPreservingObjectProperty<>(DownloadRegion.CHINA_MAINLAND);
-
-    /// Returns the selected download region property.
-    public ObjectProperty<DownloadRegion> downloadRegionProperty() {
-        return downloadRegion;
-    }
-
-    /// Returns whether the selected download region turns off online downloading.
-    ///
-    /// Launching an already installed game does not depend on this flag.
-    public boolean isDownloadDisabled() {
-        return downloadRegion.get() == DownloadRegion.CHINA_MAINLAND;
     }
 
     /// The selected default add-on source ID.

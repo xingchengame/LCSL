@@ -302,9 +302,6 @@ public final class ModListPage extends ListPageBase<ModListPage.ModInfoObject> i
         if (gameInstance == null) {
             return;
         }
-        if (!DownloadRegionManager.ensureDownloadAllowed()) {
-            return;
-        }
         Controllers.getDownloadPage().showModDownloads().selectInstance(gameInstance.getId());
         Controllers.navigate(Controllers.getDownloadPage());
     }

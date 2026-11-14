@@ -27,7 +27,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
-import org.jackhuang.hmcl.setting.DownloadRegion;
 import org.jackhuang.hmcl.setting.DownloadSource;
 import org.jackhuang.hmcl.setting.EnumCommonDirectory;
 import org.jackhuang.hmcl.setting.ProxyType;
@@ -64,31 +63,6 @@ public class DownloadSettingsPage extends StackPane {
         FXUtils.smoothScrolling(scrollPane);
         scrollPane.setFitToWidth(true);
         getChildren().setAll(scrollPane);
-
-        {
-            var regionContent = new ComponentList();
-            regionContent.getStyleClass().add("card-non-transparent");
-            {
-                Function<DownloadRegion, String> regionConverter = region -> switch (region) {
-                    case CHINA_MAINLAND -> i18n("settings.launcher.download_region.china_mainland");
-                    case OTHER -> i18n("settings.launcher.download_region.other");
-                };
-                Function<DownloadRegion, String> regionDescriptionConverter = region -> region == DownloadRegion.CHINA_MAINLAND
-                        ? i18n("settings.launcher.download_region.china_mainland.desc")
-                        : null;
-
-                var downloadRegionPane = new LineSelectButton<DownloadRegion>();
-                downloadRegionPane.setTitle(i18n("settings.launcher.download_region"));
-                downloadRegionPane.setNullSafeConverter(regionConverter);
-                downloadRegionPane.setDescriptionConverter(regionDescriptionConverter);
-                downloadRegionPane.setItems(DownloadRegion.values());
-                downloadRegionPane.valueProperty().bindBidirectional(settings().downloadRegionProperty());
-
-                regionContent.getContent().setAll(downloadRegionPane);
-            }
-
-            content.getChildren().addAll(ComponentList.createComponentListTitle(i18n("settings.launcher.download")), regionContent);
-        }
 
         {
             var gameContent = new ComponentList();

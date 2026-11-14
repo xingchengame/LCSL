@@ -28,7 +28,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
-import static org.jackhuang.hmcl.setting.SettingsManager.settings;
 import static org.jackhuang.hmcl.util.Lang.thread;
 import static org.jackhuang.hmcl.util.logging.Logger.LOG;
 
@@ -101,9 +100,6 @@ public final class UpdateChecker {
 
     /// Checks for an update in the background, ignoring the request while a check is already running.
     public static void requestCheckUpdate() {
-        if (settings().isDownloadDisabled())
-            return;
-
         Platform.runLater(() -> {
             if (isCheckingUpdate())
                 return;

@@ -26,6 +26,8 @@ import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -43,6 +45,7 @@ import org.jackhuang.hmcl.ui.SVG;
 import org.jackhuang.hmcl.ui.animation.AnimationUtils;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.io.IOException;
 import java.util.List;
@@ -60,6 +63,9 @@ import static org.jackhuang.hmcl.util.logging.Logger.LOG;
 /// The card works whether the player is signed in or not.
 @NotNullByDefault
 public final class GuardCard extends VBox {
+
+    /// How long the card waits between two automatic refreshes.
+    private static final Duration AUTO_REFRESH_PERIOD = Duration.seconds(120);
 
     /// The label of the emblem.
     private final Label nameLabel = new Label("LCS-G");
@@ -198,6 +204,14 @@ public final class GuardCard extends VBox {
 
         startRing();
         refresh();
+
+        // Refresh whenever the player comes back to the main page, so the numbers are never stale.
+        visibleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue)
+                refresh();
+        });
+
+        startAutoRefresh();
     }
 
     /// Builds one of the four numbers of the card.
@@ -371,14 +385,25 @@ public final class GuardCard extends VBox {
     ///
     /// @param names the names of the players, or `null` when the website sent none
     /// @return the badges, at most twelve of them
-    private static List<Label> playerBadges(@Nullable List<String> names) {
+    private static @Unmodifiable List<Node> playerBadges(@Nullable List<String> names) {
         if (names == null)
             return List.of();
-        return names.stream().limit(12).map(name -> {
-            var badge = new Label(name);
-            badge.getStyleClass().add("guard-player");
-            return badge;
-        }).toList();
+        return names.stream().limit(12).map(GuardCard::playerBadge).toList();
+    }
+
+    /// Builds one badge: the face of the player next to their name.
+    ///
+    /// The face arrives in the background from [PlayerAvatar], so the badge shows the name
+    /// right away and the face appears over it once it is loaded.
+    ///
+    /// @param name the name of the player
+    /// @return the badge
+    private static Node playerBadge(String name) {
+        var label = new Label(name);
+        var badge = new HBox(6, PlayerAvatar.face(name, 18), label);
+        badge.getStyleClass().add("guard-player");
+        badge.setAlignment(Pos.CENTER_LEFT);
+        return badge;
     }
 
     /// Returns the tone the card is in for the state the website sent.
@@ -424,6 +449,25 @@ public final class GuardCard extends VBox {
                 new KeyFrame(Duration.seconds(6), new KeyValue(ring.rotateProperty(), 360.0)));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    /// Refreshes the card automatically while the launcher shows it.
+    private void startAutoRefresh() {
+        if (!AnimationUtils.isAnimationEnabled())
+            return;
+
+        Timeline timeline = new Timeline(new KeyFrame(AUTO_REFRESH_PERIOD, event -> {
+            if (isDisplayed())
+                refresh();
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
+    /// Whether the card is in a window the player can see right now.
+    private boolean isDisplayed() {
+        @Nullable Scene scene = getScene();
+        return isVisible() && scene != null && scene.getWindow() != null && scene.getWindow().isShowing();
     }
 
     /// Everything the card shows, read from the website in one go.

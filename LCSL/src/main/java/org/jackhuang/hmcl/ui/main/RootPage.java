@@ -26,7 +26,6 @@ import org.jackhuang.hmcl.game.ModpackHelper;
 import org.jackhuang.hmcl.setting.Accounts;
 import org.jackhuang.hmcl.setting.GameDirectoryManager;
 import org.jackhuang.hmcl.ui.Controllers;
-import org.jackhuang.hmcl.ui.DownloadRegionManager;
 import org.jackhuang.hmcl.ui.FXUtils;
 import org.jackhuang.hmcl.ui.SVG;
 import org.jackhuang.hmcl.ui.account.AccountAdvancedListItem;
@@ -82,8 +81,6 @@ public class RootPage extends DecoratorAnimatedPage implements DecoratorPage {
                     modpacks -> {
                         Path file = modpacks.get(0);
                         if (ModpackHelper.isFileModpackByExtension(file)) {
-                            if (!DownloadRegionManager.ensureDownloadAllowed())
-                                return;
                             Controllers.getDecorator().startWizard(
                                     new ModpackInstallWizardProvider(GameDirectoryManager.getSelectedRepository(), file),
                                     i18n("install.modpack"));
@@ -150,7 +147,6 @@ public class RootPage extends DecoratorAnimatedPage implements DecoratorPage {
             downloadItem.setLeftIcon(SVG.DOWNLOAD);
             downloadItem.setTitle(i18n("download"));
             downloadItem.setOnAction(e -> Controllers.navigate(Controllers.getDownloadPage()));
-            DownloadRegionManager.hideWhenDisabled(downloadItem);
             if (AnimationUtils.isAnimationEnabled()) {
                 FXUtils.prepareOnMouseEnter(downloadItem, Controllers::prepareDownloadPage);
             }
@@ -177,6 +173,7 @@ public class RootPage extends DecoratorAnimatedPage implements DecoratorPage {
                     .add(downloadItem)
                     .startCategory(i18n("settings.launcher.general").toUpperCase(Locale.ROOT))
                     .addNavigationDrawerItem(i18n("server"), SVG.PUBLIC, () -> Controllers.navigate(Controllers.getServerPage()))
+                    .addNavigationDrawerItem(i18n("screenshots.manage"), SVG.SCREENSHOT_MONITOR, () -> Controllers.navigate(Controllers.getScreenshotsFrame()))
                     .add(launcherSettingsItem)
                     .addNavigationDrawerItem(i18n("contact.chat"), SVG.CHAT, () -> {
                         Controllers.getSettingsPage().showFeedback();

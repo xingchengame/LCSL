@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.glavo.site/hmcl/theme-pack/1.0.0",
+  "id": "lcsl.night",
+  "version": "1.0.0",
+  "name": {
+    "default": "Starry Night",
+    "zh-Hans": "星夜蓝",
+    "zh-Hant": "星夜藍"
+  },
+  "description": {
+    "default": "A deep blue theme inspired by the starry night",
+    "zh-Hans": "取意星空的深邃蓝色主题",
+    "zh-Hant": "取意星空的深邃藍色主題"
+  },
+  "authors": [
+    {
+      "name": {
+        "default": "LuCunServer"
+      }
+    }
+  ],
+  "theme": {
+    "color": "#3949AB",
+    "brightness": "dark",
+    "colorStyle": "fidelity",
+    "background": {
+      "type": "paint",
+      "paint": "linear-gradient(to bottom, #0d1b3e, #1a237e)",
+      "opacity": 1.0
+    },
+    "titleBar": {
+      "transparent": true
+    }
+  }
+}

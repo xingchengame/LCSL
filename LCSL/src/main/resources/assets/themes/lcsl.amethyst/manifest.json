@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.glavo.site/hmcl/theme-pack/1.0.0",
+  "id": "lcsl.amethyst",
+  "version": "1.0.0",
+  "name": {
+    "default": "Amethyst",
+    "zh-Hans": "紫晶",
+    "zh-Hant": "紫晶"
+  },
+  "description": {
+    "default": "An elegant purple theme inspired by amethyst",
+    "zh-Hans": "取意紫水晶的优雅紫色主题",
+    "zh-Hant": "取意紫水晶的優雅紫色主題"
+  },
+  "authors": [
+    {
+      "name": {
+        "default": "LuCunServer"
+      }
+    }
+  ],
+  "theme": {
+    "color": "#7E57C2",
+    "brightness": "light",
+    "colorStyle": "fidelity",
+    "background": {
+      "type": "paint",
+      "paint": "linear-gradient(to bottom right, #d1c4e9, #7e57c2)",
+      "opacity": 1.0
+    },
+    "titleBar": {
+      "transparent": true
+    }
+  }
+}

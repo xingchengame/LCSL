@@ -51,7 +51,6 @@ import org.jackhuang.hmcl.setting.SettingsManager;
 import org.jackhuang.hmcl.task.Schedulers;
 import org.jackhuang.hmcl.task.Task;
 import org.jackhuang.hmcl.ui.Controllers;
-import org.jackhuang.hmcl.ui.DownloadRegionManager;
 import org.jackhuang.hmcl.ui.FXUtils;
 import org.jackhuang.hmcl.ui.ListPageBase;
 import org.jackhuang.hmcl.ui.SVG;
@@ -206,9 +205,6 @@ public final class ResourcePackListPage extends ListPageBase<ResourcePackListPag
 
     private void onDownload() {
         if (gameInstance == null) {
-            return;
-        }
-        if (!DownloadRegionManager.ensureDownloadAllowed()) {
             return;
         }
         Controllers.getDownloadPage().showResourcePackDownloads().selectInstance(gameInstance.getId());

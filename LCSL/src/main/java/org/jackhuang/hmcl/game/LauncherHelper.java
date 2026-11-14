@@ -51,6 +51,7 @@ import org.jackhuang.hmcl.util.platform.windows.WinReg;
 import org.jackhuang.hmcl.util.versioning.GameVersionNumber;
 import org.jackhuang.hmcl.util.versioning.VersionNumber;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -67,6 +68,7 @@ import java.util.stream.Collectors;
 
 import static javafx.application.Platform.runLater;
 import static javafx.application.Platform.setImplicitExit;
+import static org.jackhuang.hmcl.setting.SettingsManager.settings;
 import static org.jackhuang.hmcl.setting.SettingsManager.state;
 import static org.jackhuang.hmcl.ui.FXUtils.runInFX;
 import static org.jackhuang.hmcl.util.DataSizeUnit.MEGABYTES;
@@ -79,6 +81,9 @@ import static org.jackhuang.hmcl.util.platform.Platform.SYSTEM_PLATFORM;
 public final class LauncherHelper {
 
     private static final String LWJGL_3_4_1_TIP = "lwjgl3.4.1-ffm";
+
+    /// The launch counts the launcher celebrates with a toast; the odd ones are server jokes.
+    private static final @Unmodifiable Set<Integer> LAUNCH_MILESTONES = Set.of(10, 50, 100, 233, 500, 1000);
 
     private final HMCLGameInstance gameInstance;
     private Account account;
@@ -860,6 +865,8 @@ public final class LauncherHelper {
         private final LaunchOptions launchOptions;
         private ManagedProcess process;
         private volatile boolean lwjgl;
+        /// When the game window opened, `0` before that; used to measure the play time.
+        private volatile long launchStartMillis;
         private LogWindow logWindow;
         private final boolean detectWindow;
         private final CircularArrayList<Log> logs;
@@ -1015,6 +1022,15 @@ public final class LauncherHelper {
                     try {
                         if (!lwjgl) {
                             lwjgl = true;
+                            // The game window opened, so this launch counts into the statistics;
+                            // a milestone count is celebrated with a toast while it is recorded.
+                            launchStartMillis = System.currentTimeMillis();
+                            runLater(() -> {
+                                int count = settings().launchCountProperty().get() + 1;
+                                settings().launchCountProperty().set(count);
+                                if (LAUNCH_MILESTONES.contains(count))
+                                    Controllers.showToast(i18n("server.toast.milestone", count));
+                            });
                             finishLaunch();
                         }
                     } finally {
@@ -1037,6 +1053,18 @@ public final class LauncherHelper {
             }
 
             launchingLatch.countDown();
+
+            // The game ran for however long it stayed up after its window opened;
+            // even an interrupted exit still played, so record the time before returning.
+            long start = launchStartMillis;
+            if (start > 0) {
+                launchStartMillis = 0;
+                // An absurdly long session is more likely a wrong clock than real play time.
+                long elapsed = (System.currentTimeMillis() - start) / 1000;
+                long seconds = Math.min(Math.max(elapsed, 0), 7L * 24 * 60 * 60);
+                runLater(() -> settings().playSecondsProperty()
+                        .set(settings().playSecondsProperty().get() + seconds));
+            }
 
             if (exitType == ExitType.INTERRUPTED)
                 return;
