@@ -23,7 +23,6 @@ import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import org.jackhuang.hmcl.ui.DownloadRegionManager;
 import org.jackhuang.hmcl.ui.FXUtils;
 import org.jackhuang.hmcl.ui.SVG;
 import org.jackhuang.hmcl.ui.construct.*;
@@ -92,7 +91,6 @@ public final class SettingsPage extends ScrollPane {
                 updatePaneList.getContent().add(disableAutoShowUpdateDialogPane);
 
                 var updateTitle = ComponentList.createComponentListTitle(i18n("update"));
-                DownloadRegionManager.hideWhenDisabled(updateTitle, updatePaneList);
                 rootPane.getChildren().addAll(updateTitle, updatePaneList);
             }
 

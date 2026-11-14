@@ -82,8 +82,10 @@ public final class ThemePackManager {
     /// IDs of launcher-bundled theme packs in display order.
     private static final @Unmodifiable List<String> BUILTIN_THEME_PACK_IDS = List.of(
             "lcsl.sakura",
-            "hmcl.default",
-            "hmcl.classic"
+            "lcsl.forest",
+            "lcsl.sunset",
+            "lcsl.night",
+            "lcsl.amethyst"
     );
 
     /// Built-in default theme reference.

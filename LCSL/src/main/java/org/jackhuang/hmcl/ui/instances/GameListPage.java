@@ -125,8 +125,6 @@ public class GameListPage extends DecoratorAnimatedPage implements DecoratorPage
             Path file = files.get(0);
 
             if (ModpackHelper.isFileModpackByExtension(file)) {
-                if (!DownloadRegionManager.ensureDownloadAllowed())
-                    return;
                 Controllers.getDecorator().startWizard(new ModpackInstallWizardProvider(GameDirectoryManager.getSelectedRepository(), file), i18n("install.modpack"));
             } else if ("json".equalsIgnoreCase(FileUtils.getExtension(file))) {
                 Instances.installFromJson(GameDirectoryManager.getSelectedRepository(), file);

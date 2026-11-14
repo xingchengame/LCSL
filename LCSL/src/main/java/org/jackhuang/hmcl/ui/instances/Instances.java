@@ -36,7 +36,6 @@ import org.jackhuang.hmcl.task.Schedulers;
 import org.jackhuang.hmcl.task.Task;
 import org.jackhuang.hmcl.task.TaskExecutor;
 import org.jackhuang.hmcl.ui.Controllers;
-import org.jackhuang.hmcl.ui.DownloadRegionManager;
 import org.jackhuang.hmcl.ui.FXUtils;
 import org.jackhuang.hmcl.ui.account.CreateAccountPane;
 import org.jackhuang.hmcl.ui.construct.DialogCloseEvent;
@@ -69,15 +68,11 @@ public final class Instances {
     }
 
     public static void addNewGame() {
-        if (!DownloadRegionManager.ensureDownloadAllowed())
-            return;
         Controllers.getDownloadPage().showGameDownloads();
         Controllers.navigate(Controllers.getDownloadPage());
     }
 
     public static void importModpack() {
-        if (!DownloadRegionManager.ensureDownloadAllowed())
-            return;
         HMCLGameRepository repository = GameDirectoryManager.getSelectedRepository();
         if (repository.isLoaded()) {
             Controllers.getDecorator().startWizard(new ModpackInstallWizardProvider(repository), i18n("install.modpack"));
@@ -85,8 +80,6 @@ public final class Instances {
     }
 
     public static void downloadModpackImpl(DownloadProvider downloadProvider, HMCLGameRepository repository, GameInstanceID instanceId, RemoteAddon mod, RemoteAddon.Version file) {
-        if (!DownloadRegionManager.ensureDownloadAllowed())
-            return;
         Path modpack;
         DownloadCandidates downloadURLs;
         try {
@@ -277,8 +270,6 @@ public final class Instances {
     }
 
     public static void updateInstance(HMCLGameInstance gameInstance) {
-        if (!DownloadRegionManager.ensureDownloadAllowed())
-            return;
         Controllers.getDecorator().startWizard(new ModpackInstallWizardProvider(gameInstance.getRepository(), gameInstance.getId()));
     }
 
@@ -360,10 +351,7 @@ public final class Instances {
         if (gameInstance == null) {
             JFXButton gotoDownload = new JFXButton(i18n("instance.empty.launch.goto_download"));
             gotoDownload.getStyleClass().add("dialog-accept");
-            gotoDownload.setOnAction(e -> {
-                if (DownloadRegionManager.ensureDownloadAllowed())
-                    Controllers.navigate(Controllers.getDownloadPage());
-            });
+            gotoDownload.setOnAction(e -> Controllers.navigate(Controllers.getDownloadPage()));
 
             Controllers.confirmAction(i18n("instance.empty.launch"), i18n("launch.failed"),
                     MessageDialogPane.MessageType.ERROR,

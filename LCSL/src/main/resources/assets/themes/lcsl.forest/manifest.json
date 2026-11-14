@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.glavo.site/hmcl/theme-pack/1.0.0",
+  "id": "lcsl.forest",
+  "version": "1.0.0",
+  "name": {
+    "default": "Forest",
+    "zh-Hans": "森林绿",
+    "zh-Hant": "森林綠"
+  },
+  "description": {
+    "default": "A fresh green theme inspired by the forest",
+    "zh-Hans": "取意森林的清新绿色主题",
+    "zh-Hant": "取意森林的清新綠色主題"
+  },
+  "authors": [
+    {
+      "name": {
+        "default": "LuCunServer"
+      }
+    }
+  ],
+  "theme": {
+    "color": "#2E7D32",
+    "brightness": "light",
+    "colorStyle": "fidelity",
+    "background": {
+      "type": "paint",
+      "paint": "linear-gradient(to bottom right, #b9f6ca, #2e7d32)",
+      "opacity": 1.0
+    },
+    "titleBar": {
+      "transparent": true
+    }
+  }
+}

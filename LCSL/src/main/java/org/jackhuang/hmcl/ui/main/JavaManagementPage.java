@@ -81,10 +81,7 @@ public final class JavaManagementPage extends ListPageBase<JavaRuntime> {
             onInstallJava = () -> FXUtils.openLink("https://www.loongnix.cn/zh/api/java/");
         } else {
             Runnable showJavaDownloadDialog = JavaDownloadDialog.showDialogAction(DownloadProviders.getDownloadProvider());
-            onInstallJava = () -> {
-                if (DownloadRegionManager.ensureDownloadAllowed())
-                    showJavaDownloadDialog.run();
-            };
+            onInstallJava = showJavaDownloadDialog::run;
         }
 
         FXUtils.applyDragListener(this, it -> {

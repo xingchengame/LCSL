@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.glavo.site/hmcl/theme-pack/1.0.0",
+  "id": "lcsl.sunset",
+  "version": "1.0.0",
+  "name": {
+    "default": "Sunset",
+    "zh-Hans": "落日橙",
+    "zh-Hant": "落日橙"
+  },
+  "description": {
+    "default": "A warm orange theme inspired by the sunset",
+    "zh-Hans": "取意落日的温暖橙色主题",
+    "zh-Hant": "取意落日的溫暖橙色主題"
+  },
+  "authors": [
+    {
+      "name": {
+        "default": "LuCunServer"
+      }
+    }
+  ],
+  "theme": {
+    "color": "#EF6C00",
+    "brightness": "light",
+    "colorStyle": "fidelity",
+    "background": {
+      "type": "paint",
+      "paint": "linear-gradient(to bottom right, #ffcc80, #f4511e)",
+      "opacity": 1.0
+    },
+    "titleBar": {
+      "transparent": true
+    }
+  }
+}

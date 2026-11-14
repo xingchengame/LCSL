@@ -23,7 +23,6 @@ import org.jackhuang.hmcl.server.LuCunAPI;
 import org.jackhuang.hmcl.task.Schedulers;
 import org.jackhuang.hmcl.task.Task;
 import org.jackhuang.hmcl.ui.Controllers;
-import org.jackhuang.hmcl.ui.DownloadRegionManager;
 import org.jackhuang.hmcl.ui.construct.DialogCloseEvent;
 import org.jackhuang.hmcl.ui.construct.MessageDialogPane;
 import org.jetbrains.annotations.NotNullByDefault;
@@ -110,9 +109,6 @@ public final class ServerNotices {
     /// The version the player has been told about is remembered in the user state once the window
     /// of it is closed, so a new version is announced exactly once.
     private static void showPackUpdate(Notices notices) {
-        if (DownloadRegionManager.isDownloadDisabled())
-            return;
-
         LuCunAPI.PackVersion pack = notices.pack();
         if (pack == null || pack.id() <= userState().lastShownPackIdProperty().get())
             return;

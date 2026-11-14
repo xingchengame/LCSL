@@ -2241,6 +2241,10 @@
     -fx-background-radius: 999;
     -fx-border-radius: 999;
     -fx-background-color: -monet-surface-container-high;
+    -fx-alignment: center-left;
+}
+
+.guard-player .label {
     -fx-text-fill: -monet-on-surface-variant;
     -fx-font-size: 12px;
 }

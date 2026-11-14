@@ -158,9 +158,6 @@ public final class WorldListPage extends ListPageBase<World> {
     }
 
     public void download() {
-        if (!DownloadRegionManager.ensureDownloadAllowed()) {
-            return;
-        }
         Controllers.getDownloadPage().showWorldDownloads();
         Controllers.navigate(Controllers.getDownloadPage());
     }

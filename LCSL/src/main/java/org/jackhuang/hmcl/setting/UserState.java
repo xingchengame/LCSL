@@ -130,15 +130,6 @@ public final class UserState extends ObservableSetting implements JsonSchemaSett
         return platformPromptVersion;
     }
 
-    /// The download region prompt version shown to the user.
-    @SerializedName("downloadRegionPromptVersion")
-    private final IntegerProperty downloadRegionPromptVersion = new SimpleIntegerProperty();
-
-    /// Returns the download region prompt version property.
-    public IntegerProperty downloadRegionPromptVersionProperty() {
-        return downloadRegionPromptVersion;
-    }
-
     /// The id of the announcement that was shown to the user last.
     @SerializedName("lastShownAnnouncementId")
     private final IntegerProperty lastShownAnnouncementId = new SimpleIntegerProperty();

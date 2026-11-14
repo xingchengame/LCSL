@@ -54,12 +54,14 @@ import org.jackhuang.hmcl.ui.construct.*;
 import org.jackhuang.hmcl.ui.construct.MessageDialogPane.MessageType;
 import org.jackhuang.hmcl.ui.decorator.Decorator;
 import org.jackhuang.hmcl.ui.download.DownloadPage;
+import org.jackhuang.hmcl.server.LuCunMonitor;
 import org.jackhuang.hmcl.ui.main.LauncherSettingsPage;
 import org.jackhuang.hmcl.ui.main.RootPage;
 import org.jackhuang.hmcl.ui.server.ServerPage;
 import org.jackhuang.hmcl.ui.instances.GameListPage;
 import org.jackhuang.hmcl.ui.instances.GameInstancePage;
 import org.jackhuang.hmcl.ui.instances.Instances;
+import org.jackhuang.hmcl.ui.instances.ScreenshotsFrame;
 import org.jackhuang.hmcl.upgrade.IntegrityChecker;
 import org.jackhuang.hmcl.upgrade.UpdateChecker;
 import org.jackhuang.hmcl.util.*;
@@ -99,6 +101,7 @@ public final class Controllers {
     private static @Nullable Decorator decorator;
 
     private static DownloadPage downloadPage;
+    private static @Nullable ScreenshotsFrame screenshotsFrame;
     private static Lazy<AccountListPage> accountListPage = new Lazy<>(() -> {
         AccountListPage accountListPage = new AccountListPage();
         accountListPage.selectedAccountProperty().bindBidirectional(Accounts.selectedAccountProperty());
@@ -224,6 +227,15 @@ public final class Controllers {
     @FXThread
     public static Node getServerPage() {
         return serverPage.get();
+    }
+
+    /// Returns the screenshots panel of the selected game instance.
+    @FXThread
+    public static ScreenshotsFrame getScreenshotsFrame() {
+        if (screenshotsFrame == null) {
+            screenshotsFrame = new ScreenshotsFrame();
+        }
+        return screenshotsFrame;
     }
 
     /// Returns the initialized main-window decorator.
@@ -377,9 +389,56 @@ public final class Controllers {
             Controllers.dialog(agreementPane);
         }
 
-        DownloadRegionManager.promptForRegion();
+        // The welcome guide walks a new player to the pack or the account page; it waits until
+        // the agreement is out of the way, since both of them are dialogs the player must answer.
+        if (SettingsManager.userState().agreementVersionProperty().get() >= 1) {
+            maybeShowOnboarding();
+        } else {
+            SettingsManager.userState().agreementVersionProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.intValue() >= 1)
+                    maybeShowOnboarding();
+            });
+        }
+
+        // Start watching the LuCunServer website so changes toast even when the panel is closed.
+        LuCunMonitor.start();
 
         tryInstallBundledModpack(GameDirectoryManager.getSelectedRepository());
+    }
+
+    /// Shows the welcome guide once, walking a new player to the pack or the account page.
+    ///
+    /// The guide is marked as done the moment it is shown, so closing the launcher in the
+    /// middle of it never brings it back.
+    private static void maybeShowOnboarding() {
+        if (settings().serverOnboardingDoneProperty().get())
+            return;
+        settings().serverOnboardingDoneProperty().set(true);
+
+        JFXDialogLayout pane = new JFXDialogLayout();
+        pane.setHeading(new Label(i18n("server.onboarding.title")));
+        pane.setBody(new Label(i18n("server.onboarding.body")));
+
+        JFXButton packButton = new JFXButton(i18n("server.onboarding.pack"));
+        packButton.getStyleClass().add("dialog-accept");
+        packButton.setOnAction(e -> {
+            pane.fireEvent(new DialogCloseEvent());
+            navigate(getServerPage());
+        });
+
+        JFXButton accountButton = new JFXButton(i18n("server.onboarding.account"));
+        accountButton.getStyleClass().add("dialog-accept");
+        accountButton.setOnAction(e -> {
+            pane.fireEvent(new DialogCloseEvent());
+            navigate(getAccountListPage());
+        });
+
+        JFXButton laterButton = new JFXButton(i18n("server.onboarding.later"));
+        laterButton.getStyleClass().add("dialog-cancel");
+        laterButton.setOnAction(e -> pane.fireEvent(new DialogCloseEvent()));
+
+        pane.setActions(packButton, accountButton, laterButton);
+        Controllers.dialog(pane);
     }
 
     /// Offers automatic install when a package exists under `.hmcl/modpack/`.
@@ -636,6 +695,7 @@ public final class Controllers {
         accountListPage = null;
         settingsPage = null;
         serverPage = null;
+        screenshotsFrame = null;
         decorator = null;
 
         FXUtils.shutdown();

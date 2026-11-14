@@ -49,7 +49,6 @@ import org.jackhuang.hmcl.task.Schedulers;
 import org.jackhuang.hmcl.task.Task;
 import org.jackhuang.hmcl.theme.Themes;
 import org.jackhuang.hmcl.ui.Controllers;
-import org.jackhuang.hmcl.ui.DownloadRegionManager;
 import org.jackhuang.hmcl.ui.FXUtils;
 import org.jackhuang.hmcl.ui.SVG;
 import org.jackhuang.hmcl.ui.animation.AnimationUtils;
@@ -311,9 +310,6 @@ public final class MainPage extends StackPane implements DecoratorPage {
     }
 
     private void launchNoGame() {
-        if (!DownloadRegionManager.ensureDownloadAllowed())
-            return;
-
         DownloadProvider downloadProvider = DownloadProviders.getDownloadProvider();
 
         Holder<GameInstanceID> instanceHolder = new Holder<>();
